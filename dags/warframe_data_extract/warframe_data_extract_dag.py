@@ -3,9 +3,10 @@ import datetime
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
 
+DAG_ID = "warframe_data_extract"
 
 with DAG(
-    dag_id="",
+    dag_id=DAG_ID,
     schedule_interval="0 * * * *",
     start_date=datetime.datetime(2024, 12, 17),
     catchup=False
