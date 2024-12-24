@@ -5,12 +5,15 @@ from airflow.operators.python import PythonOperator
 from airflow.models.taskinstance import TaskInstance
 
 import datetime
+import time
 
 DAG_ID = "s3_test_dag"
 
 def upload_to_s3(ti: TaskInstance):
+    time.sleep(5)
     s3 = S3Hook(aws_conn_id="s3_datadumplings")
     s3.load_string("Test Content", key="test-file.log", bucket_name="test")
+    time.sleep(10)
 
 with DAG(
     dag_id=DAG_ID,
