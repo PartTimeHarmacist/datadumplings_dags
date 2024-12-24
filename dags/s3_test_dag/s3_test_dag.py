@@ -6,6 +6,8 @@ from airflow.models.taskinstance import TaskInstance
 
 import datetime
 
+DAG_ID = "s3_test_dag"
+
 def upload_to_s3(ti: TaskInstance):
     s3 = S3Hook(aws_conn_id="s3_datadumplings")
     s3.load_string("Test Content", key="test-file.log", bucket_name="test")
