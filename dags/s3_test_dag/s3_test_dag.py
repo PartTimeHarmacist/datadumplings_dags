@@ -27,6 +27,12 @@ with DAG(
     catchup=False
 ) as dag:
 
+    dag.doc_md = """
+    # S3 Test DAG
+    Just a simple DAG to test the connection and setup of the local S3 deployment, by overwriting a singular log file
+    with the current time in UTC.
+    """
+
     t0a = EmptyOperator(task_id="start")
 
     t1 = PythonOperator(
