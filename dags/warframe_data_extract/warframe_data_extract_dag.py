@@ -13,6 +13,9 @@ DAG_ID = "warframe_data_extract"
 def load_data(ti: TaskInstance, **kwargs):
     import requests
     from bs4 import BeautifulSoup, Tag, PageElement
+    import os
+    logging.info(f"CWD: {os.getcwd()}")
+    logging.info(f"ls: {os.listdir()}")
 
     try:
         from shared.warframe.ordis import DropTableType
