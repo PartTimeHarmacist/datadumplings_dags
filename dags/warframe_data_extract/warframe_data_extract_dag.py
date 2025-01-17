@@ -38,10 +38,13 @@ def load_data(ti: TaskInstance, **kwargs):
         drop_table_type = DropTableType.from_html_table(table, header_text)
 
         logging.info(f"Header: {header_text}")
-        logging.info(f"Number of drop tables: {len(drop_table_type.drop_tables)}")
+        if num_drop_tables := len(drop_table_type.drop_tables) > 0:
+            logging.info(f"Number of drop tables: {len(drop_table_type.drop_tables)}")
 
-        for tbl in drop_table_type.drop_tables:
-            logging.info(tbl.name)
+            for tbl in drop_table_type.drop_tables:
+                logging.debug(tbl.name)
+        else:
+            logging.warning("No drop tables for header!")
 
 
 
