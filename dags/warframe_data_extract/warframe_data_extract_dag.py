@@ -1,5 +1,5 @@
 import datetime
-from typing import Iterable
+import logging
 
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
@@ -7,18 +7,18 @@ from airflow.operators.python import PythonOperator
 from airflow.models.taskinstance import TaskInstance
 from airflow.models.variable import Variable
 
-try:
-    from shared.warframe.ordis import DropTableType
-except ImportError:
-    # Dev environment
-    from dags.shared.warframe.ordis import DropTableType
-
 DAG_ID = "warframe_data_extract"
 
 
 def load_data(ti: TaskInstance, **kwargs):
     import requests
     from bs4 import BeautifulSoup, Tag, PageElement
+
+    try:
+        from shared.warframe.ordis import DropTableType
+    except ImportError:
+        # Dev environment
+        from dags.shared.warframe.ordis import DropTableType
 
 
     drop_table_url = Variable.get(kwargs.get("drop_table_url_var", "WARFRAME_DROP_TABLE_URL"))
@@ -36,6 +36,13 @@ def load_data(ti: TaskInstance, **kwargs):
         header_text = header.text.rstrip(":")
 
         drop_table_type = DropTableType.from_html_table(table, header_text)
+
+        logging.info(f"Header: {header_text}")
+        logging.info(f"Number of drop tables: {len(drop_table_type.drop_tables)}")
+
+        for tbl in drop_table_type.drop_tables:
+            logging.info(tbl.name)
+
 
 
 
