@@ -72,6 +72,7 @@ with DAG(
     t1 = PythonOperator(
         task_id="load_data",
         python_callable=load_data,
+        working_directory="/opt/airflow/dags/repo/dags",
         op_kwargs={
             "drop_table_url_var": "WARFRAME_DROP_TABLE_URL"
         }
