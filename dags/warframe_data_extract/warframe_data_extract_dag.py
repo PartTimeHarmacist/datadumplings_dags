@@ -18,6 +18,9 @@ def load_data(ti: TaskInstance, **kwargs):
         from shared.warframe.ordis import DropTableType
     except ImportError:
         # Dev environment
+        import os
+        logging.info(f"{os.getcwd()}")
+        logging.info(f"{os.listdir()}")
         from dags.shared.warframe.ordis import DropTableType
 
 
