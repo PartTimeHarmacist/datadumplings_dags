@@ -7,7 +7,7 @@ from airflow.operators.python import PythonOperator
 from airflow.models.taskinstance import TaskInstance
 from airflow.models.variable import Variable
 
-from dags.shared.warframe.ordis import DropTableType
+from ..shared.warframe.ordis import DropTableType
 
 DAG_ID = "warframe_data_extract"
 
