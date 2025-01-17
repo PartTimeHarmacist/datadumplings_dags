@@ -10,6 +10,7 @@ from airflow.models.variable import Variable
 try:
     from shared.warframe.ordis import DropTableType
 except ImportError:
+    # Dev environment
     from dags.shared.warframe.ordis import DropTableType
 
 DAG_ID = "warframe_data_extract"
