@@ -72,6 +72,8 @@ with DAG(
     t1 = PythonOperator(
         task_id="load_data",
         python_callable=load_data,
+        retries=2,
+        retry_delay=datetime.timedelta(seconds=15),
         op_kwargs={
             "drop_table_url_var": "WARFRAME_DROP_TABLE_URL"
         }
