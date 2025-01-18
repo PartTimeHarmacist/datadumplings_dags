@@ -138,7 +138,11 @@ def load_data(ti: TaskInstance, **kwargs):
         header = table.find_previous_sibling("h3")
         header_text = header.text.rstrip(":")
 
-        drop_table_type = DropTableType.from_html_table(table, header_text)
+        try:
+            drop_table_type = DropTableType.from_html_table(table, header_text)
+        except ValueError as e:
+            logging.warning(f"Header {header_text} failed to import!", exc_info=e)
+            continue
 
         logging.info(f"Header: {header_text}")
         if num_drop_tables := len(drop_table_type.drop_tables) > 0:
