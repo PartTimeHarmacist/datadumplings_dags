@@ -191,7 +191,7 @@ def load_data(ti: TaskInstance, **kwargs):
 
 with DAG(
     dag_id=DAG_ID,
-    schedule_interval="0 * * * *",
+    schedule_interval="30 4 * * *",
     start_date=datetime.datetime(2024, 12, 17),
     catchup=False
 ) as dag:
