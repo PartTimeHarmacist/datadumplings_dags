@@ -4,6 +4,8 @@ import logging
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
 from airflow.models.taskinstance import TaskInstance
 from airflow.models.variable import Variable
 
