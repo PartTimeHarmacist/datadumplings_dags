@@ -151,17 +151,8 @@ def load_data(ti: TaskInstance, **kwargs):
     conn = PostgresHook(postgres_conn_id="datalake_postgres")
     drop_table_url = Variable.get(kwargs.get("drop_table_url_var", "WARFRAME_DROP_TABLE_URL"))
 
-    resp = requests.get(drop_table_url)
-    soup = BeautifulSoup(resp.text, "html.parser")
-
-    # Data is split by h3 headers into categories
-    # Reward Tables are each a table where the first header is formatted like so:
-    # {planet}/{node} ({mission type})
-    # Followed by headers for each rotation
-    # Until a blank row is encountered (class="blank-row"), where the pattern repeats
-    for table in soup.select("table"):
-        header = table.find_previous_sibling("h3")
-        header_text = header.text.rstrip(":")
+    dtp = DropTableProcessor(drop_table_url)
+    dtp.load_data()
 
         try:
             drop_table_type = DropTableType.from_html_table(table, header_text)
