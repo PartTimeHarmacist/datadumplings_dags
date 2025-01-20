@@ -58,7 +58,7 @@ class DropTableProcessor:
             url: str
     ):
         self.url = url
-        self.drop_table_records = []
+        self.drop_table_records = {}
 
 
     @staticmethod
