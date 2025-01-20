@@ -192,7 +192,7 @@ def load_data(ti: TaskInstance, **kwargs):
 with DAG(
     dag_id=DAG_ID,
     schedule_interval="30 4 * * *",
-    owner_links={"harmacist": "https://parttimeharmacist.github.com"},
+    owner_links={"harmacist": "https://whoami.datadumplings.cloud"},
     start_date=datetime.datetime(2024, 12, 17),
     catchup=False,
     default_args={"owner": "harmacist"}
