@@ -157,13 +157,13 @@ def load_data(ti: TaskInstance, **kwargs):
     dtp = DropTableProcessor(drop_table_url)
     dtp.load_data()
 
-    with NamedTemporaryFile(suffix=".csv", delete_on_close=False, mode="a+") as tmp_file:
+    with NamedTemporaryFile(suffix=".csv", delete_on_close=False, mode="a+", newline="\n") as tmp_file:
         tmp_name = tmp_file.name
 
         for table_type, table_records in dtp.drop_table_records.items():
             # Data is loaded and parsed, now upload it
             logging.info(f"Loading {table_type} data to file {tmp_name}...")
-            csv_writer = csv.writer(tmp_file, delimiter="\t", newline="\n")
+            csv_writer = csv.writer(tmp_file, delimiter="\t")
             csv_writer.writerows([
                 [
                     None,
