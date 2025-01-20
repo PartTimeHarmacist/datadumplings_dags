@@ -157,7 +157,7 @@ def load_data(ti: TaskInstance, **kwargs):
     dtp = DropTableProcessor(drop_table_url)
     dtp.load_data()
 
-    with NamedTemporaryFile(suffix=".csv", delete_on_close=False) as tmp_file:
+    with NamedTemporaryFile(suffix=".csv", delete_on_close=False, mode="a+") as tmp_file:
         tmp_name = tmp_file.name
 
         for table_type, table_records in dtp.drop_table_records.items():
