@@ -192,8 +192,10 @@ def load_data(ti: TaskInstance, **kwargs):
 with DAG(
     dag_id=DAG_ID,
     schedule_interval="30 4 * * *",
+    owner_links={"harmacist": "https://parttimeharmacist.github.com"},
     start_date=datetime.datetime(2024, 12, 17),
-    catchup=False
+    catchup=False,
+    default_args={"owner": "harmacist"}
 ) as dag:
 
     t0a = EmptyOperator(task_id="start")
