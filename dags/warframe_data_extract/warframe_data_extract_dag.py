@@ -163,7 +163,7 @@ def load_data(ti: TaskInstance, **kwargs):
         for table_type, table_records in dtp.drop_table_records.items():
             # Data is loaded and parsed, now upload it
             logging.info(f"Loading {table_type} data to file {tmp_name}...")
-            csv_writer = csv.writer(tmp_file)
+            csv_writer = csv.writer(tmp_file, delimiter="\t", newline="\n")
             csv_writer.writerows([
                 [
                     None,
