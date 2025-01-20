@@ -160,15 +160,24 @@ def load_data(ti: TaskInstance, **kwargs):
     with NamedTemporaryFile(suffix=".csv", delete_on_close=False) as tmp_file:
         tmp_name = tmp_file.name
 
-        logging.info(f"Header: {header_text}")
-        if num_drop_tables := len(drop_table_type.drop_tables) > 0:
-            logging.info(f"Number of drop tables: {len(drop_table_type.drop_tables)}")
+        for table_type, table_records in dtp.drop_table_records.items():
+            # Data is loaded and parsed, now upload it
+            logging.info(f"Loading {table_type} data to file {tmp_name}...")
+            csv_writer = csv.writer(tmp_file)
+            csv_writer.writerows([
+                [
+                    "",
+                    r.drop_table_type,
+                    r.selector.name,
+                    r.selector.rotation,
+                    r.selector.stage,
+                    r.drop.name,
+                    r.drop.chance.description,
+                    r.drop.chance.percentage
+                ] for r in table_records
+            ])
 
-            for tbl in drop_table_type.drop_tables:
-                logging.debug(tbl.name)
-        else:
-            logging.warning("No drop tables for header!")
-
+        conn.bulk_load("warframe_drops", tmp_file.name)
 
 
 
