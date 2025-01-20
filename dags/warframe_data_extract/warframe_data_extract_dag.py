@@ -207,6 +207,7 @@ with DAG(
             drop_table_type VARCHAR(255),
             selector VARCHAR(255),
             rotation VARCHAR(24),
+            stage VARCHAR(24),
             drop TEXT,
             chance_desc VARCHAR(255),
             chance_pct FLOAT
