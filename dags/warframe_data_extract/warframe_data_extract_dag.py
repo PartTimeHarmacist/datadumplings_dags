@@ -166,7 +166,6 @@ def load_data(ti: TaskInstance, **kwargs):
             csv_writer = csv.writer(tmp_file, delimiter="\t")
             csv_writer.writerows([
                 [
-                    None,
                     r.drop_table_type,
                     r.selector.name,
                     r.selector.rotation,
@@ -177,7 +176,16 @@ def load_data(ti: TaskInstance, **kwargs):
                 ] for r in table_records
             ])
 
-        conn.bulk_load("warframe_drops", tmp_file.name)
+        cols_str = ",".join([
+            "drop_table_type",
+            "selector",
+            "rotation",
+            "stage",
+            "drop",
+            "chance_desc",
+            "chance_pct"
+        ])
+        conn.bulk_load(f"warframe_drops({cols_str})", tmp_file.name)
 
 
 
