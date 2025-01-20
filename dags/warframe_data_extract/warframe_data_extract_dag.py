@@ -189,15 +189,6 @@ def load_data(ti: TaskInstance, **kwargs):
         conn.bulk_load(f"warframe_drops({cols_str})", tmp_file.name)
 
 
-
-
-def transform_data(ti: TaskInstance):
-    pass
-
-def upload_data(ti: TaskInstance):
-    pass
-
-
 with DAG(
     dag_id=DAG_ID,
     schedule_interval="0 * * * *",
