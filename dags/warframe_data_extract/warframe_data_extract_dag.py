@@ -225,16 +225,6 @@ with DAG(
         }
     )
 
-    t2 = PythonOperator(
-        task_id="transform_data",
-        python_callable=transform_data
-    )
-
-    t3 = PythonOperator(
-        task_id="upload_data",
-        python_callable=upload_data
-    )
-
     t0b = EmptyOperator(task_id="end")
 
-    t0a >> t1 >> t2 >> t3 >> t0b
+    t0a >> t1 >> t2 >> t0b
