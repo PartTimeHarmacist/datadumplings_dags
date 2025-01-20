@@ -198,8 +198,25 @@ with DAG(
 
     t0a = EmptyOperator(task_id="start")
 
-    t1 = PythonOperator(
-        task_id="load_data",
+    t1 = SQLExecuteQueryOperator(
+        task_id="recreate_warframe_table",
+        conn_id="datalake_postgres",
+        sql="""
+        CREATE TABLE IF NOT EXISTS warframe_drops (
+            id SERIAL PRIMARY KEY,
+            drop_table_type VARCHAR(255),
+            selector VARCHAR(255),
+            rotation VARCHAR(24),
+            drop TEXT,
+            chance_desc VARCHAR(255),
+            chance_pct FLOAT
+        );
+        DELETE FROM warframe_drops WHERE 1=1;
+        """
+    )
+
+    t2 = PythonOperator(
+        task_id="load_data_from_site",
         python_callable=load_data,
         retries=2,
         retry_delay=datetime.timedelta(seconds=15),
