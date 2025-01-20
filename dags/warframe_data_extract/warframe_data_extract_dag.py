@@ -87,11 +87,13 @@ class DropTableProcessor:
         for table in soup.select("table"):
             header = table.find_previous_sibling("h3")
             header_text = header.text.rstrip(":")
-            drop_tables[header_text] = []
 
             # Break after hitting the sorties header, as the ItemsBySource is not yet implemented
             if "sorties" in header_text.strip().lower():
                 break
+
+            drop_tables[header_text] = []
+
 
             # Iterate over the types
             for drop_table in self._split_on_blank_rows(table.select("tr")):
