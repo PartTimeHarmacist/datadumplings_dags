@@ -148,7 +148,7 @@ class DropTableProcessor:
 def load_data(ti: TaskInstance, **kwargs):
     import csv
 
-
+    conn = PostgresHook(postgres_conn_id="datalake_postgres")
     drop_table_url = Variable.get(kwargs.get("drop_table_url_var", "WARFRAME_DROP_TABLE_URL"))
 
     resp = requests.get(drop_table_url)
