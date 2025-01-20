@@ -146,8 +146,7 @@ class DropTableProcessor:
 
 
 def load_data(ti: TaskInstance, **kwargs):
-    import requests
-    from bs4 import BeautifulSoup, Tag, PageElement
+    import csv
 
 
     drop_table_url = Variable.get(kwargs.get("drop_table_url_var", "WARFRAME_DROP_TABLE_URL"))
