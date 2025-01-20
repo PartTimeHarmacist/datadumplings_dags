@@ -31,6 +31,12 @@ class Stage:
     group: int = None
     # Stage 1, Stage 2, Stage 3 of 4, Stage 3 of 5, etc
 
+    def __str__(self):
+        rtn = f"Stage {self.primary}"
+        if self.group:
+            rtn += f" of {self.group}"
+        return rtn
+
 @dataclass
 class Selector:
     name: str
