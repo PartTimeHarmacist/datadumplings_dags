@@ -157,6 +157,16 @@ def load_data(ti: TaskInstance, **kwargs):
     dtp = DropTableProcessor(drop_table_url)
     dtp.load_data()
 
+    cols_str = ",".join([
+        "drop_table_type",
+        "selector",
+        "rotation",
+        "stage",
+        "drop",
+        "chance_desc",
+        "chance_pct"
+    ])
+
     with NamedTemporaryFile(suffix=".csv", delete_on_close=False, mode="a+", newline="\n") as tmp_file:
         tmp_name = tmp_file.name
 
@@ -176,15 +186,6 @@ def load_data(ti: TaskInstance, **kwargs):
                 ] for r in table_records
             ])
 
-        cols_str = ",".join([
-            "drop_table_type",
-            "selector",
-            "rotation",
-            "stage",
-            "drop",
-            "chance_desc",
-            "chance_pct"
-        ])
         conn.bulk_load(f"warframe_drops({cols_str})", tmp_file.name)
 
 
