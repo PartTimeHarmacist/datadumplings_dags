@@ -166,7 +166,7 @@ def load_data(ti: TaskInstance, **kwargs):
             csv_writer = csv.writer(tmp_file)
             csv_writer.writerows([
                 [
-                    "",
+                    None,
                     r.drop_table_type,
                     r.selector.name,
                     r.selector.rotation,
