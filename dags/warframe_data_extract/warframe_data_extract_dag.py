@@ -147,6 +147,7 @@ class DropTableProcessor:
 
 def load_data(ti: TaskInstance, **kwargs):
     import csv
+    from tempfile import NamedTemporaryFile
 
     conn = PostgresHook(postgres_conn_id="datalake_postgres")
     drop_table_url = Variable.get(kwargs.get("drop_table_url_var", "WARFRAME_DROP_TABLE_URL"))
@@ -154,11 +155,8 @@ def load_data(ti: TaskInstance, **kwargs):
     dtp = DropTableProcessor(drop_table_url)
     dtp.load_data()
 
-        try:
-            drop_table_type = DropTableType.from_html_table(table, header_text)
-        except ValueError as e:
-            logging.warning(f"Header {header_text} failed to import!", exc_info=e)
-            continue
+    with NamedTemporaryFile(suffix=".csv", delete_on_close=False) as tmp_file:
+        tmp_name = tmp_file.name
 
         logging.info(f"Header: {header_text}")
         if num_drop_tables := len(drop_table_type.drop_tables) > 0:
