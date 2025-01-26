@@ -22,10 +22,16 @@ class Chance:
     description: str
     percentage: float
 
+    def __str__(self):
+        return f"{self.description} ({self.percentage:.2f}%)"
+
 @dataclass
 class Drop:
     name: str
     chance: Chance
+
+    def __str__(self):
+        return f"{self.name} {self.chance}"
 
 @dataclass
 class Stage:
@@ -58,6 +64,9 @@ class DropTableRecord:
     drop_table_type: str
     selector: Selector
     drop: Drop
+
+    def __str__(self):
+        return f"{self.drop_table_type}: {self.selector} = {self.drop}"
 
 @dataclass
 class ItemBySource:
