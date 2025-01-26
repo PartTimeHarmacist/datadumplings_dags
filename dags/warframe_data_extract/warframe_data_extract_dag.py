@@ -45,6 +45,14 @@ class Selector:
     rotation: str
     stage: Stage = None
 
+    def __str__(self):
+        rtn = self.name
+        if self.rotation:
+            rtn += f" Rotation {self.rotation}"
+        if self.stage:
+            rtn += f" Stage {self.stage}"
+        return rtn
+
 @dataclass
 class DropTableRecord:
     drop_table_type: str
