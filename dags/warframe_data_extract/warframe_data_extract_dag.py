@@ -90,6 +90,7 @@ class DropTableProcessor:
 
 
     def load_data(self):
+        log = logging.getLogger()
         resp = requests.get(self.url)
         soup = BeautifulSoup(resp.text, "html.parser")
         drop_tables = {}
@@ -103,6 +104,7 @@ class DropTableProcessor:
                 break
 
             drop_tables[header_text] = []
+            log.info(f"Processing header {header_text}")
 
 
             # Iterate over the types
@@ -123,6 +125,7 @@ class DropTableProcessor:
                                     selector_text,
                                     rotation=""
                                 )
+                        log.info(f"Set selector to {selector}")
                     else:
                         row_data = row.select("td")
                         chance_text = row_data[-1].text
