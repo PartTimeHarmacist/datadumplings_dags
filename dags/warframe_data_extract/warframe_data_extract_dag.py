@@ -126,8 +126,10 @@ class DropTableProcessor:
                         th = th[0]
                         if th.attrs.get("colspan"):
                             if "rotation" in th.text.strip().lower():
-                                rotation = th.text[-1]
-                                selector.rotation = rotation
+                                selector = Selector(
+                                    selector.name,
+                                    rotation=th.text[-1]
+                                )
                             else:
                                 selector_text = th.text
                                 selector = Selector(
